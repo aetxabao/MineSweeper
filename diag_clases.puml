@@ -1,0 +1,81 @@
+@startuml
+class Salida {
++ void pinta(int[][])
+}
+class Tablero {
+- int numFilas
+- int numColumnas
+- int[][] matriz
+- int numBombas
+- Bombero bombero
+- int descubiertos
+- boolean bombasDescubiertas
++ <<Create>> Tablero(int,int,int)
++ int[][] getMatriz()
+- void limpiarTablero()
++ boolean hayBombaEn(int,int)
++ void calculaBombasVecinas(int,int)
++ void descubreBombas()
++ boolean estanDescubiertasTodasLasNoBombas()
++ boolean haDescubiertoBombas()
++ boolean finalizado()
+}
+class Main {
++ {static} void main(String[])
+}
+class Juego {
+- Tablero tablero
+- Entrada entrada
+- Salida salida
+- int numFilas
+- int numColumnas
+- int numBombas
++ void run()
+- void inicio()
+- void gameLoop()
+- void fin()
+- void pinta()
+}
+class Bombero {
+- Random random
+- Posicion[] posiciones
+- int total
++ <<Create>> Bombero(int)
++ Posicion getPosicion(int)
++ void ponerBombas(int,int,int)
+- void ponerAlgunasBombas(int,int,int)
++ boolean hayBombaEn(int,int)
+- void todoSonBombas(int,int)
+- void eliminarBombas(int)
+- void eliminarBomba()
++ String toString()
+}
+class V {
++ {static} int TAPADO
++ {static} int BOMBA
+}
+class Entrada {
+- Scanner teclado
++ <<Create>> Entrada()
++ int leerEntero(String,int,int)
+}
+class Posicion {
+- int fila
+- int columna
++ <<Create>> Posicion(int,int)
++ int getFila()
++ int getColumna()
++ boolean equals(int,int)
++ String toString()
+}
+
+Main ..> Juego
+Juego --> Tablero
+Juego --> Entrada
+Juego --> Salida
+Tablero --> Bombero
+Bombero o- Posicion
+Salida ..> V
+Tablero ..> V
+
+@enduml
