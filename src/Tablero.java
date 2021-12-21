@@ -25,7 +25,11 @@ public class Tablero {
     }
 
     private void limpiarTablero(){
-        // TODO: limpiarTablero
+        for (int i = 0; i < numFilas; i++) {
+            for (int j = 0; j < numColumnas; j++) {
+                matriz[i][j] = V.TAPADO;
+            }
+        }
     }
 
     public boolean hayBombaEn(int fila, int columna) {
@@ -33,11 +37,27 @@ public class Tablero {
     }
 
     public void calculaBombasVecinas(int fila, int columna) {
-        // TODO: calculaBombasVecinas
+        int n = 0;
+        for(int i=fila-1;i<=fila+1;i++) {
+            for (int j = columna - 1; j <= columna + 1; j++) {
+                if (    (i >= 0) && (i <= numFilas - 1) &&
+                        (j >= 0) && (j <= numColumnas - 1) &&
+                        hayBombaEn(i, j)     ) {
+                    n++;
+                }
+            }
+        }
+        matriz[fila][columna] = n;
+        descubiertos++;
     }
 
     public void descubreBombas() {
-        // TODO: descubreBombas
+        Posicion posicion;
+        for (int i = 0; i < numBombas; i++) {
+            posicion = bombero.getPosicion(i);
+            matriz[posicion.getFila()][posicion.getColumna()] = V.BOMBA;
+        }
+        bombasDescubiertas = true;
     }
 
     public boolean estanDescubiertasTodasLasNoBombas() {
